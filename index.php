@@ -10,8 +10,12 @@ function getHeaders(): array
     return $result;
 }
 
-function getQueryParams(): array
+function getQueryParams()
 {
+    if (isset($_SERVER['QUERY_STRING'])) {
+        return $_SERVER['QUERY_STRING'];
+    }
+
     return [];
 }
 
@@ -19,4 +23,4 @@ $params = getQueryParams();
 
 $headers = getHeaders();
 
-var_dump($headers);
+var_dump($params);
