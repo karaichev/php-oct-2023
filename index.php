@@ -12,11 +12,11 @@ function getHeaders(): array
 
 function getQueryParams(): array
 {
-    return [];
+    return $_GET;
 }
 
 $params = getQueryParams();
 
 $headers = getHeaders();
 
-var_dump($headers);
+var_dump($params);
