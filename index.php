@@ -10,13 +10,9 @@ function getHeaders(): array
     return $result;
 }
 
-function getQueryParams()
+function getQueryParams(): array
 {
-    if (isset($_SERVER['QUERY_STRING'])) {
-        return $_SERVER['QUERY_STRING'];
-    }
-
-    return [];
+    return $_GET;
 }
 
 $params = getQueryParams();
