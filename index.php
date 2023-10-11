@@ -1,6 +1,4 @@
 <?php
-header('Content-Type: application/json');
-
 function getHeaders(): array
 {
     return [];
