@@ -10,13 +10,21 @@ function getHeaders(): array
     return $result;
 }
 
-function getQueryParams(): array
+function getQueryParams():array
 {
-    return $_GET;
+    $resquery_p = [];
+
+   if (!empty($_SERVER["QUERY_STRING"])){
+        $resquery_p = explode("&",$_SERVER["QUERY_STRING"]);
+        return $resquery_p;
+    }
+    return $resquery_p;
+
 }
 
 $params = getQueryParams();
 
 $headers = getHeaders();
 
-var_dump($params);
+print_r($params);
+#var_dump($headers);
