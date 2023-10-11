@@ -1,7 +1,13 @@
 <?php
 function getHeaders(): array
 {
-    return [];
+    $result = [];
+    foreach ($_SERVER as $key => $header) {
+        if (str_starts_with($key, 'HTTP_')){
+            $result[$key] = $header;
+        }
+    }
+    return $result;
 }
 
 function getQueryParams(): array
@@ -12,3 +18,5 @@ function getQueryParams(): array
 $params = getQueryParams();
 
 $headers = getHeaders();
+
+var_dump($headers);
