@@ -12,13 +12,17 @@ function getHeaders(): array
 
 function getQueryParams():array
 {
-    $resquery_p = [];
+    $param = [];
 
    if (!empty($_SERVER["QUERY_STRING"])){
         $resquery_p = explode("&",$_SERVER["QUERY_STRING"]);
-        return $resquery_p;
+        for($i=0; $i<count($resquery_p); $i++){
+            $param_with_val = explode("=",$resquery_p[$i]);
+            $param[$param_with_val[0]]=$param_with_val[1];
+        }
+        return $param;
     }
-    return $resquery_p;
+    return $param;
 
 }
 
