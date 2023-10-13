@@ -13,22 +13,22 @@ function getHeaders(): array
 function getQueryParams():array
 {
     $param = [];
-
+    $j=1;
    if (!empty($_SERVER["QUERY_STRING"])){
         $resquery_p = explode("&",$_SERVER["QUERY_STRING"]);
         for($i=0; $i<count($resquery_p); $i++){
-            $param_with_val = explode("=",$resquery_p[$i]);
-            $param[$param_with_val[0]]=$param_with_val[1];
+            $pparam = explode("=",$resquery_p[$i]);
+            $param+=[$pparam[0].$j =>$pparam[1]];
+            $j++;
         }
         return $param;
     }
     return $param;
-
 }
 
 $params = getQueryParams();
 
 $headers = getHeaders();
 
-print_r($params);
-#var_dump($headers);
+var_export($params);
+var_dump($headers);
