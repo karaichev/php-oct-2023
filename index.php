@@ -1,22 +1,19 @@
 <?php
-function getHeaders(): array
-{
-    $result = [];
-    foreach ($_SERVER as $key => $header) {
-        if (str_starts_with($key, 'HTTP_')){
-            $result[$key] = $header;
-        }
-    }
-    return $result;
-}
 
-function getQueryParams(): array
-{
-    return $_GET;
-}
+use App\Request;
 
-$params = getQueryParams();
+require __DIR__ . '/autoload.php';
 
-$headers = getHeaders();
+$app = new App\App();
 
-var_dump($params);
+$app->get('/', function () {
+    echo 'Home Page!!! ';
+});
+
+$app->get('/about', function (Request $request) {
+    echo 'About Page!!!' . $request->getUri();
+});
+
+// $app->config(...)
+
+$app->run();
