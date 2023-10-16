@@ -18,8 +18,8 @@ function getQueryParams(): array
     }
     $list = explode('&', $_SERVER['QUERY_STRING']);
     foreach ($list as $item) {
-        $param_and_value = explode('=', $item);
-        $params[$param_and_value[0]] = $param_and_value[1];
+        list($key, $value) = explode('=', $item);
+        $params[$key] = $value;
     }
     return $params;
 }
