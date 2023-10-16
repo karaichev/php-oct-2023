@@ -3,26 +3,29 @@ function getHeaders(): array
 {
     $result = [];
     foreach ($_SERVER as $key => $header) {
-        if (str_starts_with($key, 'HTTP_')){
+        if (str_starts_with($key, 'HTTP_')) {
             $result[$key] = $header;
         }
     }
     return $result;
 }
 
-function getQueryParams():array
+function getQueryParams(): array
 {
     $param = [];
-    $j=1;
-   if (!empty($_SERVER["QUERY_STRING"])){
-        $resquery_p = explode("&",$_SERVER["QUERY_STRING"]);
-        for($i=0; $i<count($resquery_p); $i++){
-            $pparam = explode("=",$resquery_p[$i]);
-            $param+=[$pparam[0].$j =>$pparam[1]];
-            $j++;
-        }
+
+    if (empty($_SERVER["QUERY_STRING"])) {
         return $param;
     }
+
+    $resQueryParams = explode("&", $_SERVER["QUERY_STRING"]);
+
+    for ($i = 0; $i < count($resQueryParams); $i++) {
+        $pParam = explode("=", $resQueryParams[$i]);
+
+        $param[$pParam[0]] = $pParam[1];
+    }
+
     return $param;
 }
 
