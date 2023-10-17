@@ -1,0 +1,11 @@
+{
+    "name": "sk/php-pro",
+    "autoload": {
+        "psr-4": {
+            "App\\": "src/"
+        }
+    },
+    "require": {
+        "psr/http-message": "^2.0"
+    }
+}

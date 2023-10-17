@@ -1,10 +1,10 @@
 <?php
 
-use App\Request;
+use App\App\Request;
 
-require __DIR__ . '/autoload.php';
+require __DIR__ . '/../vendor/autoload.php';
 
-$app = new App\App();
+$app = new App\App\App();
 
 $app->get('/', function () {
     echo 'Home Page!!! ';

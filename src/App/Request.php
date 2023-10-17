@@ -1,13 +1,13 @@
 <?php
 
-namespace App;
+namespace App\App;
 
 class Request
 {
     private array $headers = [];
     private string $method = '';
     private array $params = [];
-    private string $uri = '';
+    private string $uri;
 
     public function __construct()
     {
