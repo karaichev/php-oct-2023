@@ -14,6 +14,14 @@ $app->get('/about', function (Request $request) {
     echo 'About Page!!!' . $request->getUri();
 });
 
+
+$app->post('/add', function (Request $request) {
+    print_r($request->getHeaders());
+});
+
+
+
+
 // $app->config(...)
 
 $app->run();
