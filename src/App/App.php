@@ -36,6 +36,19 @@ class App
     }
 
 
+    public function post(string $path,callable $handle):void{
+        if ($this->request->getMethod() !== 'POST') {
+            return;
+        }
+        if ($path !== $this->request->getUri()) {
+            return;
+        }
+
+        $this->handle = $handle;
+
+    }
+
+
     public function run(): void
     {
         $handle = $this->handle;
