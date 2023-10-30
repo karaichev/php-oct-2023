@@ -11,6 +11,8 @@ class Request
 
     private   $body = null;
 
+    private  $parsedBody = [];
+
 
     public function __construct()
     {
@@ -35,17 +37,19 @@ class Request
     {
         return $this->uri;
     }
-    public function  getBody(){
-
-      if (!null === $this->body){
-            $this->body = file_get_contents('//input');
+    public function  getBody()
+    {
+      if (isset($this->body)){
+            $this->body = file_get_contents('php://input');
       }
        return $this->body;
     }
-    public function getParams():array{
+    public function getParams():array
+    {
         return $this->params;
     }
-    public function getHeaders():array{
+    public function getHeaders():array
+    {
         $result = [];
         foreach ($_SERVER as $key => $header) {
             if (str_starts_with($key, 'HTTP_')){
@@ -55,4 +59,7 @@ class Request
         $this->headers = $result;
         return $this->headers;
     }
+
+
 }
+
