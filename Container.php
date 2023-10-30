@@ -2,6 +2,7 @@
 
 class Container {
     private array $binds = [
+        \contracts\RepositoryInterface::class => \repository\BookRepository::class
     ];
 
     public function resolveClass(string $className): mixed
