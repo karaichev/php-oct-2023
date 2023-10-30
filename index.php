@@ -12,7 +12,16 @@ function getHeaders(): array
 
 function getQueryParams(): array
 {
-    return $_GET;
+    $params =[];
+    if (empty($_SERVER['QUERY_STRING'])) {
+        return $params;
+    }
+    $list = explode('&', $_SERVER['QUERY_STRING']);
+    foreach ($list as $item) {
+        list($key, $value) = explode('=', $item);
+        $params[$key] = $value;
+    }
+    return $params;
 }
 
 $params = getQueryParams();
