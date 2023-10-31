@@ -20,7 +20,7 @@ $app->post('/add', function (Request $request) {
 });
 
 $app->post('/add_json', function (Request $request) {
-    print_r($request->getBody());
+    echo "data_json".$request->getParseBody();
 });
 
 

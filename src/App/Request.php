@@ -11,7 +11,7 @@ class Request
 
     private   $body = null;
 
-    private  $parsedBody = [];
+    private  $parsedBody = '';
 
 
     public function __construct()
@@ -58,6 +58,10 @@ class Request
         }
         $this->headers = $result;
         return $this->headers;
+    }
+
+    public function getParseBody():string{
+        return $this->parsedBody;
     }
 
 
