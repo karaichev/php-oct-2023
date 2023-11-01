@@ -5,14 +5,17 @@ namespace App\App;
 class App
 {
     private $handle;
+
+    private $data;
     private Request $request;
 
     public function __construct()
     {
         $this->request = new Request();
+
     }
 
-    public function get(string $path, callable $handle): void
+    public function get(string $path ,callable $handle): void
     {
         if ($this->request->getMethod() !== 'GET') {
             return;
@@ -23,7 +26,9 @@ class App
 
         $this->handle = $handle;
     }
-    public function post(string $path,callable $handle):void{
+
+    public function post(string $path,callable $handle,$dat=''):void
+    {
         if ($this->request->getMethod() !== 'POST') {
             return;
         }
@@ -32,6 +37,7 @@ class App
         }
 
         $this->handle = $handle;
+        $this->data = $dat;
 
     }
 
@@ -39,5 +45,8 @@ class App
     {
         $handle = $this->handle;
         $handle($this->request);
+
+        $date = $this->data;
+        echo $date;
     }
 }

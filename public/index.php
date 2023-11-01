@@ -6,6 +6,8 @@ require __DIR__ . '/../vendor/autoload.php';
 
 $app = new App\App\App();
 
+
+
 $app->get('/', function () {
     echo 'Home Page!!! ';
 });
@@ -19,8 +21,11 @@ $app->post('/add', function (Request $request) {
     print_r($request->getParams());
 });
 
-$app->post('/add_json', function (Request $request) {
-    echo "data_json".$request->getParseBody();
+
+$app->post('/json',function (Request $request) {
+   $var =array('firstname'=>$_POST['firstname'],'lastname'=>$_POST['lastname']);
+   $json = json_encode($var);
+   print_r($request->getMethod());
 });
 
 

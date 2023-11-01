@@ -11,7 +11,7 @@ class Request
 
     private   $body = null;
 
-    private  $parsedBody = '';
+    private  $parsedBody;
 
 
     public function __construct()
@@ -39,7 +39,7 @@ class Request
     }
     public function  getBody()
     {
-      if (isset($this->body)){
+      if (null===$this->body){
             $this->body = file_get_contents('php://input');
       }
        return $this->body;
@@ -60,7 +60,11 @@ class Request
         return $this->headers;
     }
 
-    public function getParseBody():string{
+    public function getParseBody()
+    {
+        $json_body = $this->getBody();
+        $data = json_decode($json_body);
+        $this->parsedBody = $data;
         return $this->parsedBody;
     }
 
