@@ -7,6 +7,7 @@
     },
     "require": {
         "psr/http-message": "^2.0",
-        "guzzlehttp/guzzle": "7.*"
+        "guzzlehttp/guzzle": "7.*",
+        "ext-curl": "*"
     }
 }

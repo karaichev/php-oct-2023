@@ -62,9 +62,10 @@ class Request
 
     public function getParseBody()
     {
-        $json_body = $this->getBody();
-        $data = json_decode($json_body);
-        $this->parsedBody = $data;
+           $json_body = $this->getBody();
+           $data = json_decode($json_body, true);
+           $this->parsedBody =$data;
+
         return $this->parsedBody;
     }
 

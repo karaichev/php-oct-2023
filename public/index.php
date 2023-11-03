@@ -23,12 +23,13 @@ $app->post('/add', function (Request $request) {
 
 
 $app->post('/json',function (Request $request) {
-   $var =array('firstname'=>$_POST['firstname'],'lastname'=>$_POST['lastname']);
-   $json = json_encode($var);
-   print_r($request->getMethod());
+    print_r($request->getParseBody());
 });
 
 
 // $app->config(...)
 
 $app->run();
+
+
+

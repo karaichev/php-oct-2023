@@ -27,7 +27,7 @@ class App
         $this->handle = $handle;
     }
 
-    public function post(string $path,callable $handle,$dat=''):void
+    public function post(string $path,callable $handle):void
     {
         if ($this->request->getMethod() !== 'POST') {
             return;
@@ -37,7 +37,6 @@ class App
         }
 
         $this->handle = $handle;
-        $this->data = $dat;
 
     }
 
@@ -46,7 +45,5 @@ class App
         $handle = $this->handle;
         $handle($this->request);
 
-        $date = $this->data;
-        echo $date;
     }
 }

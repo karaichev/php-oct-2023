@@ -2,20 +2,68 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Forms</title>
+    <title>Title</title>
 </head>
 <body>
-<h2>HTML Forms</h2>
+<form action="/json" name="simpleForm" id="simpleForm">
+  <p>
+    <label for="first_name">Имя:</label>
+    <input type="text" name="first_name" id="first_name" required>
+  </p>
 
-<form action="http://localhost:3000/json" method="POST">
-    First name:<br>
-    <input type="text" name="firstname">
-    <br>
-    Last name:<br>
-    <input type="text" name="lastname">
-    <br><br>
-    <input type="submit" value="Submit">
+  <p>
+    <label for="last_name">Фамилия:</label>
+    <input type="text" name="last_name" id="last_name" required>
+  </p>
+  <p>
+    <label for="phone">Телефон:</label>
+    <input type="tel" name="phone" id="phone" required>
+  </p>
+  <p>
+    <label for="to">Email:</label>
+    <input type="email" name="to" id="to" required>
+  </p>
+
+  <input type="submit" id="submit" value="Отправить">
 </form>
 
+<div id="sendMessage"></div>
 </body>
 </html>
+
+<script>
+  var sendMessage = document.getElementById('sendMessage');
+  var form = document.getElementById('simpleForm'),
+          url = form.action;
+  form.onsubmit = function(e) {
+    e.preventDefault();
+
+    var data = {}; //переменная для сбора данных из формы
+
+    for (var i = 0, len = form.length; i < len; i++) {
+      var input = form[i];
+      if (input.name) {
+        data[input.name] = input.value;
+      }
+    }
+
+    var jsonStr = JSON.stringify(data); //преобразуем данные из объекта data в json-строку
+    console.log(data, jsonStr);
+    var xhr = new XMLHttpRequest();
+    xhr.open('POST', url, true);
+    xhr.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
+    xhr.onreadystatechange = function() {
+      if (xhr.readyState != 4) return;
+      if (xhr.status != 200) {
+        sendMessage.innerHTML = xhr.statusText; //выводим сообщение об ошибке
+      } else {
+        console.log(xhr.response);
+        //выводим полученное от PHP-скрипта сообщение об отправке письма
+        sendMessage.innerHTML = xhr.responseText;
+        form.reset();//очищаем форму
+      }
+    }
+    xhr.send(jsonStr); //отсылаем строку в формате JSON
+  }
+
+</script>
