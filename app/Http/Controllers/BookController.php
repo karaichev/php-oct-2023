@@ -2,22 +2,30 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Models\Book;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class BookController extends Controller
 {
     // @route /books
     public function index()
     {
-        // ...
-        return ['book1', 'book2'];
+        $books = Book::all();
+
+        return $books;
     }
 
     // @route /books/{id}
     public function show($id)
     {
-        // ...
-        return 'book' . $id;
+        $book = Book::where('id', $id)
+            ->first();
+
+        if ($book === null) {
+            throw new NotFoundHttpException();
+        }
+
+        return $book;
     }
 }
 
