@@ -14,10 +14,26 @@ class App
 
     public function get(string $path, callable $handle): void
     {
-        if ($this->request->getMethod() !== 'GET') {
+        if ($this->request->getMethod() !== 'GET')
+        {
             return;
         }
-        if ($path !== $this->request->getUri()) {
+        if ($path !== $this->request->getUri())
+        {
+            return;
+        }
+
+        $this->handle = $handle;
+    }
+
+    public function post(string $path, callable $handle): void
+    {
+        if ($this->request->getMethod() !== 'POST')
+        {
+            return;
+        }
+        if ($path !== $this->request->getUri())
+        {
             return;
         }
 
@@ -30,3 +46,5 @@ class App
         $handle($this->request);
     }
 }
+
+
