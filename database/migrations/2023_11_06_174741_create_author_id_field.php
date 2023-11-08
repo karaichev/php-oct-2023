@@ -22,6 +22,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        //Schema::dropIfExists('author_id_field');
+        Schema::table('books', function (Blueprint $table) {
+            $table->dropColumn('author_id');
+        });
     }
 };

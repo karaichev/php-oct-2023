@@ -3,27 +3,64 @@
 namespace App\Http\Controllers;
 
 use App\Models\Book;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Http\JsonResponse;
 
 class BookController extends Controller
 {
     // @route /books
-    public function index()
+    public function index(): Collection
     {
-        $books = Book::all();
-
-        return $books;
+        return Book::all();
     }
 
     // @route /books/{id}
-    public function show($id)
+    public function show(Book $book): Book
     {
-        $book = Book::where('id', $id)
-            ->first();
+        return $book;
+    }
 
-        if ($book === null) {
-            throw new NotFoundHttpException();
+    public function store(): JsonResponse
+    {
+        $book = new Book([
+            'title' => request()->input('title'),
+            'page_number' => request()->integer('page_number'),
+            'annotation' => request()->input('annotation'),
+            'author_id' => request()->integer('author_id'),
+        ]);
+
+        $book->save();
+
+        return response()->json($book->id, 201);
+    }
+
+    public function update(Book $book): Book
+    {
+        $data = [];
+
+        if (request()->method() === 'PUT') {
+            $data = [
+                'title' => request()->input('title'),
+                'page_number' => request()->integer('page_number'),
+                'annotation' => request()->input('annotation'),
+                'author_id' => request()->integer('author_id'),
+            ];
+        } else {
+            if (request()->has('title')) {
+                $data['title'] = request()->input('title');
+            }
+            if (request()->has('page_number')) {
+                $data['page_number'] = request()->integer('page_number');
+            }
+            if (request()->has('annotation')) {
+                $data['annotation'] = request()->input('annotation');
+            }
+            if (request()->has('author_id')) {
+                $data['author_id'] = request()->integer('author_id');
+            }
         }
+
+        $book->update($data);
 
         return $book;
     }

@@ -16,5 +16,12 @@ use Illuminate\Support\Facades\Route;
 
 Route::controller(BookController::class)->prefix('/books')->group(function () {
     Route::get('/', 'index')->name('books.index');
-    Route::get('/{id}', 'show')->name('book');
+    Route::get('/{book}', 'show')->name('book');
+    Route::post('/', 'store')->name('books.store');
+    Route::put('/{book}', 'update')->name('books.update');
+    Route::patch('/{book}', 'update')->name('books.update');
+
+    // -- web --
+    // vRoute::get('/create', 'create')->name('books.create');
+    // vRoute::post('/', 'store')->name('books.store');
 });
