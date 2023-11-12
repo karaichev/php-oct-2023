@@ -26,7 +26,7 @@ class Book extends Model
         'status' => BookStatus::class,
     ];
 
-    public function author(): belongsTo
+    public function author(): BelongsTo
     {
         return $this->belongsTo(Author::class);
     }

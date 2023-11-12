@@ -18,12 +18,12 @@ class Review extends Model
         'text', 'rate', 'book_id', 'user_id',
     ];
 
-    public function book(): belongsTo
+    public function book(): BelongsTo
     {
         return $this->belongsTo(Book::class);
     }
 
-    public function user(): belongsTo
+    public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
     }
