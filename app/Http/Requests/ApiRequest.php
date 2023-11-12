@@ -4,14 +4,14 @@ namespace App\Http\Requests;
 
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
-use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
+use Illuminate\Http\Exceptions\HttpResponseException;
 
 class ApiRequest extends FormRequest
 {
     protected function failedValidation(Validator $validator)
     {
-        throw new BadRequestHttpException(response()->json([
+        throw new HttpResponseException(response()->json([
             'errors' => $validator->getMessageBag(),
-        ]));
+        ], 422));
     }
 }

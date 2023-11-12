@@ -2,7 +2,7 @@
 
 namespace App\Enums;
 
-enum ProductStatus: string
+enum BookStatus: string
 {
     case Published = 'published';
     case Draft = 'draft';

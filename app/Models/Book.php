@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use App\Enums\ProductStatus;
+use App\Enums\BookStatus;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -23,7 +23,7 @@ class Book extends Model
     ];
 
     protected $casts = [
-        'status' => ProductStatus::class,
+        'status' => BookStatus::class,
     ];
 
     public function author(): belongsTo
