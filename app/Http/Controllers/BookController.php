@@ -2,12 +2,23 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Book\StoreBookRequest;
 use App\Models\Book;
+use App\Models\Review;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\Storage;
 
 class BookController extends Controller
 {
+    public function __construct()
+    {
+        auth()->login(
+            User::query()->inRandomOrder()->first()
+        );
+    }
+
     // @route /books
     public function index(): Collection
     {
@@ -20,18 +31,41 @@ class BookController extends Controller
         return $book;
     }
 
-    public function store(): JsonResponse
+    public function store(StoreBookRequest $request): JsonResponse
     {
+//        dd($request);
+        $files = $request->file('images');
+
         $book = new Book([
-            'title' => request()->input('title'),
-            'page_number' => request()->integer('page_number'),
-            'annotation' => request()->input('annotation'),
-            'author_id' => request()->integer('author_id'),
+            'title' => $request->input('title'),
+            'page_number' => $request->input('page_number'),
+            'annotation' => $request->input('annotation'),
+            'author_id' => $request->integer('author_id'),
         ]);
 
         $book->save();
 
+        foreach ($files as $file) {
+            $path = $file->storePublicly();
+
+            $book->images()->create([
+                'url' => Storage::url($path),
+            ]);
+        }
+
         return response()->json($book->id, 201);
+    }
+
+    public function reviewStore(Book $book)
+    {
+        /** @var Review $review */
+        $review = auth()->user()->reviews()->create([
+            'text' => request()->input('text'),
+            'rate' => request()->integer('rate'),
+            'book_id' => $book->id,
+        ]);
+
+        return $review;
     }
 
     public function update(Book $book): Book
