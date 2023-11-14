@@ -4,11 +4,14 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\Book\StoreBookRequest;
 use App\Http\Requests\Book\StoreReviewRequest;
+use App\Http\Resources\BookListResource;
+use App\Http\Resources\BookResource;
 use App\Models\Book;
 use App\Models\Review;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use Illuminate\Support\Facades\Storage;
 
 class BookController extends Controller
@@ -21,15 +24,15 @@ class BookController extends Controller
     }
 
     // @route /books
-    public function index(): Collection
+    public function index(): AnonymousResourceCollection
     {
-        return Book::all();
+        return BookListResource::collection(Book::all());
     }
 
     // @route /books/{id}
-    public function show(Book $book): Book
+    public function show(Book $book): BookResource
     {
-        return $book;
+        return new BookResource($book);
     }
 
     public function store(StoreBookRequest $request): JsonResponse

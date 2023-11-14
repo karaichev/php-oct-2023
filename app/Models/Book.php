@@ -10,6 +10,8 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
  * @property int $id
+ * @property string $title
+ * @property string $annotation
  * @property-read Author $author
  * @property-read Image[] $images
  * @property-read Review[] $reviews
