@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\Book\StoreBookRequest;
+use App\Http\Requests\Book\StoreReviewRequest;
 use App\Models\Book;
 use App\Models\Review;
 use App\Models\User;
@@ -33,8 +34,7 @@ class BookController extends Controller
 
     public function store(StoreBookRequest $request): JsonResponse
     {
-//        dd($request);
-        $files = $request->file('images');
+        $files = $request->file('images', []);
 
         $book = new Book([
             'title' => $request->input('title'),
@@ -56,16 +56,14 @@ class BookController extends Controller
         return response()->json($book->id, 201);
     }
 
-    public function reviewStore(Book $book)
+    public function reviewStore(Book $book, StoreReviewRequest $request)
     {
         /** @var Review $review */
-        $review = auth()->user()->reviews()->create([
-            'text' => request()->input('text'),
-            'rate' => request()->integer('rate'),
+        return auth()->user()->reviews()->create([
+            'text' => $request->input('text'),
+            'rate' => $request->integer('rate'),
             'book_id' => $book->id,
         ]);
-
-        return $review;
     }
 
     public function update(Book $book): Book
