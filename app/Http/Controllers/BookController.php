@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Facades\BookFacade;
 use App\Http\Requests\Book\StoreBookRequest;
 use App\Http\Requests\Book\StoreReviewRequest;
 use App\Http\Resources\BookListResource;
@@ -9,10 +10,9 @@ use App\Http\Resources\BookResource;
 use App\Models\Book;
 use App\Models\Review;
 use App\Models\User;
-use Illuminate\Database\Eloquent\Collection;
+use App\Services\Book\BookService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
-use Illuminate\Support\Facades\Storage;
 
 class BookController extends Controller
 {
@@ -37,24 +37,7 @@ class BookController extends Controller
 
     public function store(StoreBookRequest $request): JsonResponse
     {
-        $files = $request->file('images', []);
-
-        $book = new Book([
-            'title' => $request->input('title'),
-            'page_number' => $request->input('page_number'),
-            'annotation' => $request->input('annotation'),
-            'author_id' => $request->integer('author_id'),
-        ]);
-
-        $book->save();
-
-        foreach ($files as $file) {
-            $path = $file->storePublicly();
-
-            $book->images()->create([
-                'url' => Storage::url($path),
-            ]);
-        }
+        $book = BookFacade::store($request);
 
         return response()->json($book->id, 201);
     }

@@ -3,6 +3,7 @@
 namespace App\Http\Resources;
 
 use App\Models\Book;
+use App\Models\Image;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -21,7 +22,7 @@ class BookResource extends JsonResource
         return [
             'id' => $this->id,
             'author' => $this->author->surname,
-            'images' => ImageResource::collection($this->images),
+            'images' => $this->images->map(fn (Image $image) => $image->url),
             'reviews' => ReviewResource::collection($this->reviews),
         ];
     }
