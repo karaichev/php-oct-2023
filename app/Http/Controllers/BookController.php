@@ -38,7 +38,9 @@ class BookController extends Controller
 
     public function store(StoreBookRequest $request): JsonResponse
     {
-        $book = BookFacade::store($request);
+        $book = BookFacade::store(
+            $request->data()
+        );
 
         return response()->json(new BookResource($book), 201);
     }

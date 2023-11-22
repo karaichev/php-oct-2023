@@ -3,11 +3,11 @@
 namespace App\Services\Book;
 
 use App\Enums\BookStatus;
-use App\Http\Requests\Book\StoreBookRequest;
 use App\Http\Requests\Book\StoreReviewRequest;
 use App\Models\Book;
 use App\Models\Review;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Storage;
 
 class BookService
@@ -21,21 +21,18 @@ class BookService
             ->get();
     }
 
-    public function store(StoreBookRequest $request): Book
+    public function store(CreateBookData $data): Book
     {
-        $files = $request->file('images', []);
+        $images = Arr::get($data->toArray(), 'images', []);
 
-        $book = new Book([
-            'title' => $request->input('title'),
-            'page_number' => $request->input('page_number'),
-            'annotation' => $request->input('annotation'),
-            'author_id' => $request->integer('author_id'),
-        ]);
+        $book = new Book(
+            $data->except('images')->toArray()
+        );
 
         $book->save();
 
-        foreach ($files as $file) {
-            $path = $file->storePublicly();
+        foreach ($images as $image) {
+            $path = $image->storePublicly();
 
             $book->images()->create([
                 'url' => Storage::url($path),
