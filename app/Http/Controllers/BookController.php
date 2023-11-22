@@ -17,9 +17,7 @@ class BookController extends Controller
 {
     public function __construct()
     {
-        auth()->login(
-            User::query()->inRandomOrder()->first()
-        );
+        $this->middleware('auth')->only(['store', 'update', 'review']);
     }
 
     // @route /books
@@ -45,7 +43,7 @@ class BookController extends Controller
         return response()->json(new BookResource($book), 201);
     }
 
-    public function reviewStore(Book $book, StoreReviewRequest $request): ReviewResource
+    public function review(Book $book, StoreReviewRequest $request): ReviewResource
     {
         return new ReviewResource(
             BookFacade::setBook($book)->createReview($request)

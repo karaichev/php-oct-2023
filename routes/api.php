@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\BookController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -21,9 +22,13 @@ Route::controller(BookController::class)->prefix('/books')->group(function () {
     Route::put('/{book}', 'update')->name('books.update');
     Route::patch('/{book}', 'update')->name('books.update');
 
-    Route::post('/{book}/review', 'reviewStore')->name('review.store');
+    Route::post('/{book}/review', 'review')->name('review.store');
 
     // -- web --
     // vRoute::get('/create', 'create')->name('books.create');
     // vRoute::post('/', 'store')->name('books.store');
+});
+
+Route::controller(UserController::class)->group(function () {
+    Route::post('/login', 'login')->name('login');
 });
