@@ -9,7 +9,6 @@ use App\Http\Resources\BookListResource;
 use App\Http\Resources\BookResource;
 use App\Http\Resources\ReviewResource;
 use App\Models\Book;
-use App\Models\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 
@@ -17,7 +16,7 @@ class BookController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth')->only(['store', 'update', 'review']);
+        $this->middleware('auth:sanctum')->only(['store', 'update', 'review']);
     }
 
     // @route /books
