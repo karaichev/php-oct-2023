@@ -3,7 +3,9 @@
         <img src="{{ url($book->images->first()->url) }}" alt="Обложка">
     @endif
 
-    <h3 class="book-title">{{ $book->title }}</h3>
+    <h3 class="book-title">
+        <a href="{{ route('book.view', ['book' => $book->id]) }}">{{ $book->title }}</a>
+    </h3>
     <p class="author">{{ $book->author->name }} {{ $book->author->surname }}</p>
     <p>{{ $book->annotation }}</p>
 </div>
