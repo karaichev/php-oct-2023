@@ -3,52 +3,28 @@
 @section('content')
     <form action="{{ route('book.store') }}" method="post" enctype="multipart/form-data">
         @csrf
+
+        <x-input-text :label="'Название книги'" :name="'title'" :id="'title'" />
+        <x-input-text :label="'Обложка'" :name="'images[]'" :id="'images'" :type="'file'" :multiple="true" />
+        <x-input-text :label="'Количество страниц'" :name="'page_number'" :id="'page_number'" />
+        <x-input-text :label="'Описание'" :name="'annotation'" :id="'annotation'" />
+
+        <x-input-select
+            :label="'Статус'"
+            :name="'status'"
+            :id="'status'"
+            :options="$statusList"
+        />
+
+        <x-input-select
+            :label="'Автор'"
+            :name="'author_id'"
+            :id="'author_id'"
+            :options="$authors"
+        />
+
         <div>
-            <label>
-                Название книги<br>
-                <input type="text" name="title">
-            </label>
-        </div>
-        <div>
-            <label>
-                Обложка<br>
-                <input type="file" name="images[]" multiple>
-            </label>
-        </div>
-        <div>
-            <label>
-                Количество страниц<br>
-                <input type="text" name="page_number">
-            </label>
-        </div>
-        <div>
-            <label>
-                Описание<br>
-                <input type="text" name="annotation">
-            </label>
-        </div>
-        <div>
-            <label>
-                Автор<br>
-                <select name="author_id">
-                    @foreach($authors as $author)
-                        <option value="{{$author->id}}">{{$author->name}} {{$author->surname}}</option>
-                    @endforeach
-                </select>
-            </label>
-        </div>
-        <div>
-            <label>
-                Статус<br>
-                <select name="status">
-                    <option value="{{ \App\Enums\BookStatus::Published }}">Опубликована</option>
-                    <option value="{{ \App\Enums\BookStatus::Draft }}">Черновик</option>
-                </select>
-            </label>
-        </div>
-        <div>
-            <br>
-            <button>Сохранить</button>
+            <button class="btn btn-primary">Сохранить</button>
         </div>
     </form>
 @endsection

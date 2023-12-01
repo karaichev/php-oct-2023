@@ -17,6 +17,7 @@
 
 <div class="main">
     @include('layouts.menu')
+    <br>
     @section('content')
     @show
 </div>

@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers\Web;
 
+use App\Enums\BookStatus;
 use App\Facades\BookFacade;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Book\StoreBookRequest;
 use App\Models\Author;
 use App\Models\Book;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Arr;
 use Illuminate\View\View;
 
 class BookController extends Controller
@@ -31,8 +33,27 @@ class BookController extends Controller
 
     public function create(): View
     {
+        $statusList = [
+            [
+                'key' => BookStatus::Published,
+                'value' => 'Опубликована',
+            ],
+            [
+                'key' => BookStatus::Draft,
+                'value' => 'Черновик',
+            ],
+        ];
+
+        $authors = Author::query()->get()->map(function ($author) {
+            return [
+                'key' => $author->id,
+                'value' => "$author->name $author->surname",
+            ];
+        })->toArray();
+
         return view('books.create', [
-            'authors' => Author::query()->get()
+            'authors' => $authors,
+            'statusList' => $statusList,
         ]);
     }
 
