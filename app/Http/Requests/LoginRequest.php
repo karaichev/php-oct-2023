@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests;
 
-class LoginRequest extends ApiRequest
+class LoginRequest extends AbstractRequest
 {
     /**
      * Get the validation rules that apply to the request.
