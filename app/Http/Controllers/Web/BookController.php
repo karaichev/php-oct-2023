@@ -12,6 +12,11 @@ use Illuminate\View\View;
 
 class BookController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth')->only(['create', 'store']);
+    }
+
     public function index(): View
     {
         $books = BookFacade::getPublishedBooks();
