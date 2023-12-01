@@ -38,3 +38,12 @@ body > header {
 .annotation {
   text-align: justify;
 }
+
+.error {
+  color: darkred;
+  font-size: .8rem;
+}
+
+input.error {
+  border-color: darkred;
+}

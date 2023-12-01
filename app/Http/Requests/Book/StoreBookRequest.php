@@ -16,7 +16,7 @@ class StoreBookRequest extends ApiRequest
             'page_number' => 'integer',
             'annotation' => ['string'],
             'author_id' => ['required'],
-            'status' => new Enum(BookStatus::class),
+            'status' => ['required', new Enum(BookStatus::class)],
             'images.*' => ['image'],
         ];
     }

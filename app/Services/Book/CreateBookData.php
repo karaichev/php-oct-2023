@@ -18,7 +18,7 @@ class CreateBookData extends Data
 
     public string|Optional $annotation;
 
-    public BookStatus $status;
+    public BookStatus $status = BookStatus::Draft;
 
     public array|Optional $images;
 

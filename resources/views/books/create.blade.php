@@ -6,7 +6,10 @@
         <div>
             <label>
                 Название книги<br>
-                <input type="text" name="title">
+                <input type="text" name="title" class="@error('title') error @enderror">
+                @error('title')
+                <div class="error">{{ $message }}</div>
+                @enderror
             </label>
         </div>
         <div>

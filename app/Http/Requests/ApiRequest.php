@@ -10,8 +10,10 @@ class ApiRequest extends FormRequest
 {
     protected function failedValidation(Validator $validator)
     {
-        throw new HttpResponseException(response()->json([
-            'errors' => $validator->getMessageBag(),
-        ], 422));
+        if ((request()->header('accept')) === 'application/json') {
+            throw new HttpResponseException(response()->json([
+                'errors' => $validator->getMessageBag(),
+            ], 422));
+        }
     }
 }
