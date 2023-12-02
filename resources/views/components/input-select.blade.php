@@ -3,7 +3,10 @@
     <div class="input-group">
         <select name="{{ $name }}" class="form-select" id="{{ $id }}">
             @foreach($options as $option)
-                <option value="{{ $option['key'] }}">{{ $option['value'] }}</option>
+                <option
+                    value="{{ $option['key'] }}"
+                    @if((string) $option['key'] === $value) selected @endif
+                >{{ $option['value'] }}</option>
             @endforeach
         </select>
     </div>

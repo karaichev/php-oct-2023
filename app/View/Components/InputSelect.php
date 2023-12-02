@@ -16,6 +16,7 @@ class InputSelect extends Component
         public string $name,
         public string $id,
         public array $options = [],
+        public string|null $value = '',
     )
     {
     }

@@ -35,11 +35,11 @@ class BookController extends Controller
     {
         $statusList = [
             [
-                'key' => BookStatus::Published,
+                'key' => BookStatus::Published->value,
                 'value' => 'Опубликована',
             ],
             [
-                'key' => BookStatus::Draft,
+                'key' => BookStatus::Draft->value,
                 'value' => 'Черновик',
             ],
         ];
