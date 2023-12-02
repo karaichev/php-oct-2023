@@ -5,7 +5,7 @@
         @csrf
 
         <x-input-text
-            :label="'Название книги'"
+            :label="__('validation.attributes.book.title')"
             :name="'title'"
             :id="'title'"
             :errors="$errors->get('title')"
@@ -20,13 +20,12 @@
             :errors="$errors->get('images')"
         />
         <x-input-text
-            :label="'Количество страниц'"
+            :label="__('validation.attributes.book.page_number')"
             :name="'page_number'"
             :id="'page_number'"
             :errors="$errors->get('page_number')"
             :value="old('page_number')"
         />
-
         <x-input-text
             :label="'Описание'"
             :name="'annotation'"
@@ -34,7 +33,6 @@
             :errors="$errors->get('annotation')"
             :value="old('annotation')"
         />
-
         <x-input-select
             :label="'Статус'"
             :name="'status'"
@@ -42,7 +40,6 @@
             :options="$statusList"
             :value="old('status')"
         />
-
         <x-input-select
             :label="'Автор'"
             :name="'author_id'"

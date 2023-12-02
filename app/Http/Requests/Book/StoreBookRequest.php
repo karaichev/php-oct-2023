@@ -21,6 +21,14 @@ class StoreBookRequest extends AbstractRequest
         ];
     }
 
+    public function attributes(): array
+    {
+        return [
+            'title' => __('validation.attributes.book.title'),
+            'page_number' => __('validation.attributes.book.page_number'),
+        ];
+    }
+
     public function data(): CreateBookData
     {
         return CreateBookData::from(
