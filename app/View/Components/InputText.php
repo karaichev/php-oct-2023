@@ -12,6 +12,7 @@ class InputText extends Component
         public string $label,
         public string $name,
         public string $id,
+        public array $errors = [],
         public string $type = 'text',
         public bool $multiple = false,
     )
