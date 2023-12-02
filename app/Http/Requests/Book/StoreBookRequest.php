@@ -21,6 +21,13 @@ class StoreBookRequest extends AbstractRequest
         ];
     }
 
+    public function attributes(): array
+    {
+        return [
+            'title' => __('validation.attributes.book.title'),
+        ];
+    }
+
     public function data(): CreateBookData
     {
         return CreateBookData::from(

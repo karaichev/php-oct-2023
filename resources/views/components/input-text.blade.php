@@ -3,13 +3,17 @@
     <div class="input-group">
         <input
             type="{{ $type }}"
-            class="form-control is-invalid"
+            class="form-control {{ $isInvalid ? 'is-invalid' : '' }}"
             name="{{ $name }}"
             id="{{ $id }}"
             {{ $multiple ? 'multiple' : '' }}
+            value="{{ $value }}"
             aria-describedby="basic-addon3 basic-addon4"
-
         >
-        <div class="invalid-feedback">{{ $message }}</div>
+        @if($isInvalid)
+            @foreach($errors as $message)
+                <div class="invalid-feedback">{{ $message }}</div>
+            @endforeach
+        @endif
     </div>
 </div>

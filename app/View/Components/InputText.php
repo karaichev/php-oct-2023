@@ -8,15 +8,19 @@ use Illuminate\View\Component;
 
 class InputText extends Component
 {
+    public bool $isInvalid = false;
+
     public function __construct(
         public string $label,
         public string $name,
         public string $id,
+        public string|null $value = '',
         public array $errors = [],
         public string $type = 'text',
         public bool $multiple = false,
     )
     {
+        $this->isInvalid = !empty($this->errors);
     }
 
     /**
