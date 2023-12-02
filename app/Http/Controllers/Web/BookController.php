@@ -9,6 +9,7 @@ use App\Http\Requests\Book\StoreBookRequest;
 use App\Models\Author;
 use App\Models\Book;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Illuminate\View\View;
 
@@ -64,5 +65,26 @@ class BookController extends Controller
         );
 
         return redirect()->route('books.show', ['book' => $book->id]);
+    }
+
+    public function search(Request $request)
+    {
+        $query = Book::query()
+            ->where(['status' => BookStatus::Published])
+            ->when($request->title, function ($q) use ($request) {
+                $q->where('title', 'like', "%$request->title%");
+            })
+        ;
+
+        $pages = $query->paginate(3);
+
+        $books = $query->get();
+
+        dump($pages->perPage());
+        dump($pages->currentPage());
+        dump($pages->total());
+
+        dump($request->title);
+        dd($books);
     }
 }
