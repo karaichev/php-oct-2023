@@ -27,8 +27,15 @@
                 </li>
                 @endauth
             </ul>
-            <form class="d-flex" role="search">
-                <input class="form-control me-2" type="search" placeholder="{{ __('messages.search') }}" aria-label="Search">
+            <form class="d-flex" action="{{ route('book.search') }}" role="search">
+                <input
+                    class="form-control me-2"
+                    type="search"
+                    name="q"
+                    placeholder="{{ __('messages.search') }}"
+                    aria-label="Search"
+                    value="{{ request()->q }}"
+                >
                 <button class="btn btn-outline-success" type="submit">{{ __('messages.search') }}</button>
             </form>
         </div>

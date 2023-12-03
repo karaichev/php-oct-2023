@@ -8,7 +8,9 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Book\StoreBookRequest;
 use App\Models\Author;
 use App\Models\Book;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Illuminate\View\View;
 
@@ -64,5 +66,33 @@ class BookController extends Controller
         );
 
         return redirect()->route('books.show', ['book' => $book->id]);
+    }
+
+    public function search(Request $request)
+    {
+        $books = Book::query()
+            ->where('title', 'like', "%$request->q%")
+            ->orWhere('annotation', 'like', "%$request->q%")
+            ->get()
+        ;
+
+        return view('books.index', ['books' => $books]);
+    }
+
+    public function filter(Request $request): View
+    {
+        $query = Book::query()
+            ->when($request->title, function (Builder $q) use ($request) {
+                $q->where('title', 'like', "%$request->title%");
+            })
+            ->when($request->annotation, function ($q) use ($request) {
+                $q->where('annotation', 'like', "%$request->annotation%");
+            })
+            ->when($request->page_number, function ($q) use ($request) {
+                $q->where('page_number', '=', $request->page_number);
+            })
+        ;
+
+        return view('books.index', ['books' => $query->get()]);
     }
 }
