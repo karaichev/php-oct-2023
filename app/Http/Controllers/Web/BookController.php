@@ -93,6 +93,11 @@ class BookController extends Controller
             })
         ;
 
-        return view('books.index', ['books' => $query->get()]);
+        $page = $query->paginate(4);
+
+        return view('books.index', [
+            'books' => $query->get(),
+            'page' => $page,
+        ]);
     }
 }
