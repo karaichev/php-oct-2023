@@ -4,6 +4,7 @@ namespace App\Services\Book;
 
 //use Spatie\LaravelData\Attributes\MapInputName;
 use App\Enums\BookStatus;
+use App\Models\Book;
 use Spatie\LaravelData\Data;
 use Spatie\LaravelData\Optional;
 
