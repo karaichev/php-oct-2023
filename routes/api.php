@@ -16,9 +16,9 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::controller(BookController::class)->prefix('/books')->group(function () {
-    Route::get('/', 'index')->name('books.index');
+    Route::get('/', 'index')->name('api.books.index');
     Route::get('/{book}', 'show')->name('book');
-    Route::post('/', 'store')->name('books.store');
+    Route::post('/', 'store')->name('api.books.store');
     Route::put('/{book}', 'update')->name('books.update');
     Route::patch('/{book}', 'update')->name('books.update');
 
